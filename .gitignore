@@ -3,3 +3,9 @@
 exp_output
 
 *.npy
+conic_baseline/data/*
+conic_baseline/source/detectron2/*
+conic_baseline/data_single/*
+conic_baseline/data_all/*
+conic_baseline/output/*
+local_test/*

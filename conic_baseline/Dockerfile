@@ -41,7 +41,8 @@ COPY --chown=algorithm:algorithm data/ /opt/algorithm/data/
 COPY --chown=algorithm:algorithm source/ /opt/algorithm/source/
 
 # Install required python packages via pip - you may adapt the requirements.txt to your needs
-RUN python -m pip install --user -r requirements.txt
+RUN python -m pip install --user -r requirements.txt -f https://download.pytorch.org/whl/torch_stable.html
+# RUN python -m pip install --user -e source/detectron2
 # >>>>>>>>>>>>>>>>>>>>>>>>>
 
 # ! DO NOT MODIFY - ORGANIZER SPECIFIC

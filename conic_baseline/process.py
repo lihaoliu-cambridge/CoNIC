@@ -15,16 +15,16 @@ DOCKER_ENTRY = {
 # ! USER SPECIFIC
 # <<<<<<<<<<<<<<<<<<<<<<<<<
 LOCAL_ENTRY = {
-    "input_dir": "",
-    "output_dir": "",
-    "user_data_dir": ""
+    "input_dir": "/home/ll610/Onepiece/code_cs138/github/CoNIC-1/local_test/mha/",
+    "output_dir": "/home/ll610/Onepiece/code_cs138/github/CoNIC-1/local_test/output/",
+    "user_data_dir": "/home/ll610/Onepiece/code_cs138/github/CoNIC-1/conic_baseline/data/"
 }
 # >>>>>>>>>>>>>>>>>>>>>>>>>
 
 # We have this parameter to adapt the paths between local execution
 # and execution in docker. You can use this flag to switch between these two modes.
 
-EXECUTE_IN_DOCKER = True
+EXECUTE_IN_DOCKER = False
 
 
 if __name__ == "__main__":

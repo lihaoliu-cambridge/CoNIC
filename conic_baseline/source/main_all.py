@@ -96,8 +96,6 @@ def run(
     
     generate_jpg_from_npy(IMG_PATH, output_dir)
 
-
-
     # #  ------------------ Step 2 ------------------ 
     from .run_instance_model import default_argument_parser, register_coco_instances, _get_coco_instances_meta, main, launch
     
@@ -105,7 +103,7 @@ def run(
     register_coco_instances("test_dataset", _get_coco_instances_meta(), f"{OUTPUT_DIR_PATH}/tmp/json/instances_test2017.json", f"{OUTPUT_DIR_PATH}/tmp/imgs")
 
     for fold_idx_instance in range(5):
-        params_list = ["--json_file_path", f"{OUTPUT_DIR_PATH}/tmp/json/instances_test2017.json", "--image_dir_path", f"{OUTPUT_DIR_PATH}/tmp/imgs", "--output_dir_path", f"{OUTPUT_DIR_PATH}", "--num-gpus", "1", "--fold", f"{fold_idx_instance}", "--config-file", f"{user_data_dir}/instance_model/fold_{fold_idx_instance}/config_fold_{fold_idx_instance}.yaml", "--eval-only", "MODEL.WEIGHTS", f"{user_data_dir}/instance_model/fold_{fold_idx_instance}/model_fold_{fold_idx_instance}.pth"]
+        params_list = ["--json_file_path", f"{OUTPUT_DIR_PATH}/tmp/json/instances_test2017.json", "--image_dir_path", f"{OUTPUT_DIR_PATH}/tmp/imgs", "--output_dir_path", f"{OUTPUT_DIR_PATH}", "--num-gpus", "1", "--fold", "{fold_idx_instance}", "--config-file", f"{user_data_dir}/instance_model/fold_{fold_idx_instance}/config_fold_{fold_idx_instance}.yaml", "--eval-only", "MODEL.WEIGHTS", f"{user_data_dir}/instance_model/fold_{fold_idx_instance}/model_fold_{fold_idx_instance}.pth"]
         args_instance = default_argument_parser().parse_args(params_list)
         print("Command Line Args:", args_instance)
 
@@ -118,15 +116,11 @@ def run(
             args=(args_instance,),
         )
 
-
-
     # # ------------------ Step 3 ------------------ 
     from .run_semantic_model import run_model
 
     for fold_idx_semantic in range(5):
         run_model(IMG_PATH, OUTPUT_DIR_PATH, user_data_dir, fold_idx_semantic)
-
-
 
     #  ------------------  Step 4 ------------------ 
     from .overwrite_ensemble import overwrite_ensemble_two_maps_current_best_simplified, get_regression_results
@@ -145,8 +139,6 @@ def run(
 
         ensembled_pred_array = overwrite_ensemble_two_maps_current_best_simplified(senmatic_pred_array, instance_pred_array)
         np.save(f'{OUTPUT_DIR_PATH}/tmp/results/pred_fold_{fold_idx_ensemble}.npy', ensembled_pred_array)
-
-
 
     #  ------------------  Step 5 ------------------ 
     from .fold_ensemble import mask2box, models_cv_masks_boxes_nms, get_masks_from_nms_pick
